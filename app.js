@@ -9,7 +9,7 @@ const moment = require('moment-timezone');
 const errorController = require('./controllers/c-api-error');
 
 // require('dotenv').config({ path: './config.env' });
-// require('dotenv').config({});
+require('dotenv').config({});
 // const ddos = new Ddos({burst:10, limit:15});
 
 // ## declare routes
@@ -66,21 +66,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// MGUSER=henggarment
-// MGPWD=Gh123456
-// MGDB=nodeGarmentSystem
-// MGSVR1=@cluster0.3il5h.mongodb.net
 //## mongodb MGDB
 //## mongodb+srv://heng:1234@cluster0.3il5h.mongodb.net/nodeXuelekTest?retryWrites=true&w=majority
 mongoose
   .connect(
     `mongodb+srv://`
-    + `henggarment:Gh123456`
-    + `@cluster0.3il5h.mongodb.net/nodeGarmentSystem`
+    + `${process.env.MGUSER}:${process.env.MGPWD}`
+    + `${process.env.MGSVR1}/${process.env.MGDB}`
     + `?retryWrites=true`
   )
   .then(() => {
-    // console.log(process.env.MGUSER);
     console.log("Connected to database!");
   })
   .catch(() => {
